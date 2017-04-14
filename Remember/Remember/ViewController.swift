@@ -34,7 +34,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate {
     @IBOutlet weak var startBtn: NSButton!
     @IBOutlet weak var stopBtn: NSButton!
     @IBAction func startRem(_ sender: Any) {
-        rptTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(deliverNotif), userInfo: nil, repeats: true)
+        rptTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(deliverNotif), userInfo: nil, repeats: true)
         rptTimer.fire()
     }
     
