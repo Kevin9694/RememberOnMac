@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A9D21CB1EA130D600E1B033 /* vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D21CA1EA130D600E1B033 /* vocabulary.swift */; };
 		0AC962631EA111B600AE6FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC962621EA111B600AE6FAD /* AppDelegate.swift */; };
 		0AC962651EA111B600AE6FAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC962641EA111B600AE6FAD /* ViewController.swift */; };
 		0AC962671EA111B600AE6FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AC962661EA111B600AE6FAD /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A9D21CA1EA130D600E1B033 /* vocabulary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vocabulary.swift; sourceTree = "<group>"; };
 		0AC9625F1EA111B600AE6FAD /* Remember.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remember.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AC962621EA111B600AE6FAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AC962641EA111B600AE6FAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		0AC962611EA111B600AE6FAD /* Remember */ = {
 			isa = PBXGroup;
 			children = (
+				0A9D21CA1EA130D600E1B033 /* vocabulary.swift */,
 				0AC962621EA111B600AE6FAD /* AppDelegate.swift */,
 				0AC962641EA111B600AE6FAD /* ViewController.swift */,
 				0AC962661EA111B600AE6FAD /* Assets.xcassets */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AC962651EA111B600AE6FAD /* ViewController.swift in Sources */,
+				0A9D21CB1EA130D600E1B033 /* vocabulary.swift in Sources */,
 				0AC962631EA111B600AE6FAD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,6 +511,7 @@
 				0AC962861EA111B600AE6FAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0AC962871EA111B600AE6FAD /* Build configuration list for PBXNativeTarget "RememberTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +520,7 @@
 				0AC962891EA111B600AE6FAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0AC9628A1EA111B600AE6FAD /* Build configuration list for PBXNativeTarget "RememberUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +529,7 @@
 				0AC9628C1EA111B600AE6FAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
