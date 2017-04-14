@@ -7,13 +7,14 @@
 //
 
 import Cocoa
-
-class ViewController: NSViewController {
+import NotificationCenter
+class ViewController: NSViewController, NSUserNotificationCenterDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
 
     override var representedObject: Any? {
@@ -22,6 +23,24 @@ class ViewController: NSViewController {
         }
     }
 
-
+    @IBOutlet weak var startBtn: NSButton!
+    @IBAction func startRem(_ sender: Any) {
+        let notif = NSUserNotification()
+        notif.title = "flamboyant"
+        notif.informativeText = "炫的"
+        notif.hasActionButton = true
+        notif.actionButtonTitle = "重背"
+        notif.soundName = NSUserNotificationDefaultSoundName
+//        notif.isPresented = true
+        let notifCenter = NSUserNotificationCenter.default
+        
+        notifCenter.delegate = self
+        notifCenter.scheduleNotification(notif)
+        
+    }
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
+    }
+    
 }
 
