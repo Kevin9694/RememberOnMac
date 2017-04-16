@@ -14,8 +14,8 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate {
     @IBOutlet weak var vocabularyInputTF: NSTextField!
     
     
-    var vocabularySet = [vocabulary]()
-    
+    var vocabularySetDisp = [vocabulary]()
+    var vocabularySetRec = [vocabulary]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate {
     @IBOutlet weak var startBtn: NSButton!
     @IBOutlet weak var stopBtn: NSButton!
     @IBAction func startRem(_ sender: Any) {
-        rptTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(deliverNotif), userInfo: nil, repeats: true)
+        rptTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(deliverNotif), userInfo: nil, repeats: true)
         rptTimer.fire()
     }
     
@@ -46,22 +46,25 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
         return true
     }
+    
     func deliverNotif(){
-        if(0 != vocabularySet.count){
+        if(0 != vocabularySetDisp.count){
             let notif = NSUserNotification()
-            notif.title = vocabularySet.first?.word
-            notif.informativeText = vocabularySet.first?.defination
+            notif.title = vocabularySetDisp.first?.word
+            notif.informativeText = vocabularySetDisp.first?.defination
             notif.hasActionButton = true
             notif.actionButtonTitle = "重背"
             notif.otherButtonTitle = "记住了"
             notif.soundName = NSUserNotificationDefaultSoundName
+            notif.userInfo?["id"] = vocabularySetDisp.first?.wordId
             //        notif.deliveryRepeatInterval = DateComponents
             //        notif.isPresented = true
             let notifCenter = NSUserNotificationCenter.default
             notifCenter.delegate = self
             //        notifCenter.scheduleNotification(notif)
+            
             notifCenter.deliver(notif)
-            vocabularySet.remove(at: 0)
+            vocabularySetDisp.remove(at: 0)
         }
         else{
             let notif = NSUserNotification()
@@ -81,19 +84,37 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate {
         let initString = vocabularyInputTF.stringValue
         let vocabularyArr = initString.components(separatedBy: "#1")
         var vcblUnitArr:[String]
+        var counter = 0
         for vocabularyUnit in vocabularyArr{
+            counter += 1
             vcblUnitArr = vocabularyUnit.components(separatedBy: "#0")
             if("" != vocabularyUnit){
-                vocabularySet.append(vocabulary(_word: vcblUnitArr[0],_defination: vcblUnitArr[1]))
+                vocabularySetDisp.append(vocabulary(_word: vcblUnitArr[0],_defination: vcblUnitArr[1], _wordId: counter))
+                vocabularySetRec.append(vocabulary(_word: vcblUnitArr[0], _defination: vcblUnitArr[1], _wordId: counter))
             }
             
 //            print("word:\(vcblUnitArr[0]),def:\(vcblUnitArr[1])")
         }
     }
+    
 
 //    func addVocabulary(){
-//        
+//
 //        vocabularySet.append()
 //    }
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
+        var id:Int!
+            id = notification.userInfo?["id"] as! Int
+        //TODO: fix it!
+        vocabularySetRec[id-1].addRemTimes()
+        vocabularySetDisp.insert(vocabularySetDisp[id-1], at: 1)
+    }
+    func exportDifRemVoc(){
+        for vcblUnit in vocabularySetRec{
+            if vcblUnit.isDfcRem(){
+                print(vcblUnit.word+"\n"+vcblUnit.defination+"\n\n")
+            }
+        }
+    }
 }
 
