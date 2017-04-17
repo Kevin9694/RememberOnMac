@@ -56,7 +56,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate {
             notif.actionButtonTitle = "重背"
             notif.otherButtonTitle = "记住了"
             notif.soundName = NSUserNotificationDefaultSoundName
-            notif.userInfo?["id"] = vocabularySetDisp.first?.wordId
+//            notif.userInfo?["id"] = vocabularySetDisp.first?.wordId
             //        notif.deliveryRepeatInterval = DateComponents
             //        notif.isPresented = true
             let notifCenter = NSUserNotificationCenter.default
@@ -104,17 +104,43 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate {
 //    }
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
         var id:Int!
-            id = notification.userInfo?["id"] as! Int
-        //TODO: fix it!
-        vocabularySetRec[id-1].addRemTimes()
-        vocabularySetDisp.insert(vocabularySetDisp[id-1], at: 1)
+        var title = notification.title
+        if "背完了!" == title{
+            
+        }else{
+            for vcblUnit in vocabularySetRec{
+                if(vcblUnit.word == title){
+                    id = vcblUnit.wordId
+                }
+            }
+            //            id = notification.userInfo?["id"] as! Int
+            //TODO: fix it!
+            vocabularySetRec[id-1].addRemTimes()
+            if 1 >= vocabularySetDisp.count{
+                self.vocabularySetDisp.insert(vocabularySetRec[id-1], at: 0)
+            }else{
+                vocabularySetDisp.insert(self.vocabularySetRec[id-1], at: 1)
+
+            }
+            
+
+        }
+}
+    @IBAction func export(_ sender: Any) {
+        var str = exportDifRemVoc()
+        let pasteboard = NSPasteboard.general()
+        pasteboard.declareTypes([NSStringPboardType], owner: nil)
+        pasteboard.setString(str, forType: NSStringPboardType)
     }
-    func exportDifRemVoc(){
+    func exportDifRemVoc()->String{
+        var rtnStr = ""
         for vcblUnit in vocabularySetRec{
             if vcblUnit.isDfcRem(){
+                rtnStr += vcblUnit.word + "#0" + vcblUnit.defination+"#1\n"
                 print(vcblUnit.word+"\n"+vcblUnit.defination+"\n\n")
             }
         }
+        return rtnStr
     }
 }
 
